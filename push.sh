@@ -21,7 +21,7 @@ fi
 printf "DONE\n"
 
 printf "Building binaries: "
-go build ado.go -o ./bin/ado
+go build -o ./bin/ado
 GOOS=windows GOARCH=amd64 go build -o ./bin/ado.exe
 printf "DONE\n"
 
