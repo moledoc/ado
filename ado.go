@@ -1,5 +1,5 @@
 /*
-Extract ados recursively from given/current walks.
+Extract ados recursively from given/current directory.
 */
 package main
 
@@ -75,17 +75,17 @@ func Help(checkingFlagCount bool) {
 	flag.Usage()
 	fmt.Printf("\nDEFAULT SEARCH KEYWORDS\n\t\t%s\n", search.String())
 	fmt.Println("\nEXAMPLES")
-	fmt.Printf(subFormat, "ado", "Gets recursively all ados from current working walks.")
+	fmt.Printf(subFormat, "ado", "Gets recursively all ados from current working directory.")
 	fmt.Printf(subFormat, "ado help", "Prints help for `ado` program.")
-	fmt.Printf(subFormat, "ado . ..", "Gets recursively all ados from current and parent walks.")
-	fmt.Printf(subFormat, "ado ./ ../", "Gets recursively all ados from current and parent walks.")
-	fmt.Printf(subFormat, "ado <file1> ../", "Gets recursively all ados from parent walks and <file1>.")
-	fmt.Printf(subFormat, "ado -file=test.txt <file1>", "Gets all ados from <file1> and in addition saves them to test.txt in the current working walks.")
-	fmt.Printf(subFormat, "ado -indent=100", "Gets recursively all ados from current walks and prints them so that ados start at column 100.")
-	fmt.Printf(subFormat, "ado -ignore=.adoignore", "Gets recursively all ados from current walks, ignoring files and directories mentioned in the given file.")
-	fmt.Printf(subFormat, "ado -search=RandomString", "Gets recursively all 'RandomString' mentions from current walks.")
-	fmt.Printf(subFormat, "ado -add=.adoadd", "Gets recursively all ados from current walks, including the keywords mentioned in the given file.")
-	fmt.Printf(subFormat, "ado -depth=2", "Gets recursively all ados from current walks, until subdirectory depth is 2 (including).")
+	fmt.Printf(subFormat, "ado . ..", "Gets recursively all ados from current and parent directory.")
+	fmt.Printf(subFormat, "ado ./ ../", "Gets recursively all ados from current and parent directory.")
+	fmt.Printf(subFormat, "ado <file1> ../", "Gets recursively all ados from parent directory and <file1>.")
+	fmt.Printf(subFormat, "ado -file=test.txt <file1>", "Gets all ados from <file1> and in addition saves them to test.txt in the current working directory.")
+	fmt.Printf(subFormat, "ado -indent=100", "Gets recursively all ados from current directory and prints them so that ados start at column 100.")
+	fmt.Printf(subFormat, "ado -ignore=.adoignore", "Gets recursively all ados from current directory, ignoring files and directories mentioned in the given file.")
+	fmt.Printf(subFormat, "ado -search=RandomString", "Gets recursively all 'RandomString' mentions from current directory.")
+	fmt.Printf(subFormat, "ado -add=.adoadd", "Gets recursively all ados from current directory, including the keywords mentioned in the given file.")
+	fmt.Printf(subFormat, "ado -depth=2", "Gets recursively all ados from current directory, until subdirectory depth is 2 (including).")
 }
 
 // clean deletes file with path adosFileFull, if it exists.
@@ -161,12 +161,12 @@ var FlagCount int = 6
 
 func main() {
 
-	adosFileLoc := flag.String("file", "", "The filename where the TODOs, NOTEs etc are saved in the current working walks.")
+	adosFileLoc := flag.String("file", "", "The filename where the TODOs, NOTEs etc are saved in the current working directory.")
 	indentLoc := flag.Int("indent", 60, "The size of indentation between filepath and ado.")
-	ignoreLoc := flag.String("ignore", ".adoignore", "File, where each line represents one walks or file that is ignored. If when .adoignore exist in the current walks, this flag is not necessary.")
+	ignoreLoc := flag.String("ignore", ".adoignore", "File, where each line represents one directory or file that is ignored. If when .adoignore exist in the current directory, this flag is not necessary.")
 	searchOne := flag.String("search", "", "Search for a specific string (regexp allowed); will overwrite the default search keywords (see keywords).")
 	searchFile := flag.String("add", "", "File, where each line represents one additional keyword (regexp allowed).")
-	depth := flag.Int("depth", -1, "The depth of walks structure recursion, -1 is exhaustive recursion.")
+	depth := flag.Int("depth", -1, "The depth of directory structure recursion, -1 is exhaustive recursion.")
 	flag.Parse()
 
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
@@ -204,7 +204,7 @@ func main() {
 
 	var WaitGroup sync.WaitGroup
 
-	// If no arguments (besides flags or subcommand) is given, then parse current walks.
+	// If no arguments (besides flags or subcommand) is given, then parse current directory.
 	if len(os.Args) == 1 || flag.NArg() == 0 {
 		WaitGroup.Add(1)
 		go func() { defer WaitGroup.Done(); walks.Walk(root, fileAdos, dirAction, *depth) }()
@@ -221,14 +221,14 @@ func main() {
 		if walks.Ignore.MatchString(arg) && walks.Ignore.String() != "" {
 			continue
 		}
-		// For each parent dot walks reference in arg, move local root (rootLoc) one walks higher.
+		// For each parent dot directory reference in arg, move local root (rootLoc) one directory higher.
 		for i := len(parentDir.FindAllStringIndex(arg, -1)); i > 0; i-- {
 			rootLoc = filepath.Dir(rootLoc)
 		}
 		// Clean arg from dot directories.
 		cleanedArg := parentDir.ReplaceAllString(arg, "")
 		cleanedArg = currentDir.ReplaceAllString(cleanedArg, "")
-		// When arg had a dot walks, then handle the path format correctly.
+		// When arg had a dot directory, then handle the path format correctly.
 		var path string
 		if cleanedArg == "" {
 			path = rootLoc
@@ -247,7 +247,7 @@ func main() {
 
 		switch mode := pathType.Mode(); {
 		default:
-			log.Fatalf("Unreachable: %s is not a file nor walks\n", path)
+			log.Fatalf("Unreachable: %s is not a file nor directory\n", path)
 		case mode.IsRegular():
 			WaitGroup.Add(1)
 			go func() { defer WaitGroup.Done(); fileAdos(path) }()
