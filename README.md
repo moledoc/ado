@@ -25,7 +25,7 @@ The filename where the TODOs, NOTEs etc are saved in the current working directo
 **-indent=int**
 
 ```
-The size of indentation between filepath and ado. (default 50)
+The size of indentation between filepath and ado. (default 60)
 ```
 
 **-ignore=filename**
