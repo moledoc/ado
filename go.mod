@@ -1,5 +1,5 @@
-module gitlab.com/utt_meelis/ado
+module github.com/moledoc/ado
 
 go 1.16
 
-require gitlab.com/utt_meelis/walks v0.0.0-20211105180004-f31f47afa2b4
+require github.com/moledoc/walks v0.0.0-20220130103742-4c1a3cb61851

@@ -2,7 +2,7 @@
 
 This is a tool to extract TODOs, NOTEs etc or user provided terms from given files and/or directories.
 
-**DEPRECIATED**: My project [seek](https://gitlab.com/utt_meelis/seek) has cleaner code and includes the core functionality/idea of this project. However, will keep this project here, since it has some nuances, that `seek` does not have.
+**DEPRECIATED**: My project [seek](https://github.com/moledoc/seek) has cleaner code and includes the core functionality/idea of this project. However, will keep this project here, since it has some nuances, that `seek` does not have.
 
 ## Usage
 

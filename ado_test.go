@@ -3,7 +3,7 @@ package main_test
 import (
 	"testing"
 
-	ado "gitlab.com/utt_meelis/ado"
+	ado "github.com/moledoc/ado"
 )
 
 // Test if flag count was updated in the help function

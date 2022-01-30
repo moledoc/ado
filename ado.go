@@ -13,7 +13,7 @@ import (
 	"strings"
 	"sync"
 
-	"gitlab.com/utt_meelis/walks"
+	"github.com/moledoc/walks"
 )
 
 // search is a variable, that hold regexp of values we are searching from the files.

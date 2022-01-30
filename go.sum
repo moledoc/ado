@@ -1,2 +1,2 @@
-gitlab.com/utt_meelis/walks v0.0.0-20211105180004-f31f47afa2b4 h1:pcarwOvHb0sl9lcNlTV2o2TPSDqJlb1w8HTfFqfqK3Q=
-gitlab.com/utt_meelis/walks v0.0.0-20211105180004-f31f47afa2b4/go.mod h1:DMhc6G5gg/C9ctxskfpIcpphLOw3y22JnBakImQjeGs=
+github.com/moledoc/walks v0.0.0-20220130103742-4c1a3cb61851 h1:NvPSiX293GvAgs0P9QVBS05svH4NhNO+7IB0/nTVsI4=
+github.com/moledoc/walks v0.0.0-20220130103742-4c1a3cb61851/go.mod h1:HKPK4RmFfqFw2HNXCDk+xh6Z1X1Y4b83UgC6ZRZ0tU0=
